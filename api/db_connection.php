@@ -1,19 +1,22 @@
 <?php
-// db_connection.php
-// 設定資料庫連線參數
-$servername = "13.230.122.24"; // Or your host, e.g., "localhost"
-$username = "root"; // Your database username
-$password = "new_secure_password"; // Your database password
-$dbname = "delly_dougan"; // Your database name
+// Fetch credentials from Vercel's Environment Variables
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USERNAME');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
-// 建立資料庫連線
-$conn = new mysqli($servername, $username, $password, $dbname);
+// The port is often included in the host, but sometimes separate
+$port = getenv('DB_PORT') ?: 3306; // Default MySQL port is 3306
 
-// 檢查連線是否成功
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+// Check connection
 if ($conn->connect_error) {
-    die("連線失敗: " . $conn->connect_error);
+    // It's better not to expose detailed error messages in production
+    die("Database connection failed. Please try again later.");
 }
 
-// 設定連線的字元集為 utf8mb4，以支援中文
+// Set character set to prevent encoding issues with Traditional Chinese
 $conn->set_charset("utf8mb4");
 ?>
