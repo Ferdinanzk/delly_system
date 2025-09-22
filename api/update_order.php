@@ -119,7 +119,7 @@ include 'header.php';
             </div>
             <div class="form-group">
                 <label for="remarks">備註</label>
-                <textarea class="form-control" id="remarks" name="remarks" rows="3"><?php echo htmlspecialchars($order['remarks']); ?></textarea>
+                <textarea class="form-control" id="remarks" name="remarks" rows="3"><?php echo htmlspecialchars($order['remarks'] ?? ''); ?></textarea>
             </div>
 
             <!-- Order Items -->
